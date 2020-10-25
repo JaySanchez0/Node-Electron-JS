@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>
+            Winner
+        </title>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            body{
+                background: orange;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <center><h1>The winner was <span id="win"></span></h1></center>
+        <center><button id="back">Back</button></center>
+        <script>
+            var ip = require("electron").ipcRenderer;
+            ip.on("winner",(e,v)=>{
+                console.log("entro winner");
+                document.getElementById("win").innerText=v;
+            });
+            var button = document.getElementById("back");
+            button.addEventListener("click",()=>{
+                ip.send("restart-game");
+            });
+        </script>
+    </body>
+</html>
